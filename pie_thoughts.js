@@ -57,53 +57,57 @@ var thoughts =  [
     var valueNeither = Math.floor(neither / totalThoughts * 100);
     
     // making sure it all adds up to 100%
-    var breakdown = [ {value: valueHelpful, color: "#ffccff", name: "helpful" }, 
-                             {value: valueUnhelpful, color: "#ffcccc", name: "unhelpful"},                             
-                             {value: ((100 - valueHelpful) - valueUnhelpful), color: "#ffffcc", name: "neither" }];
-    
+    var breakdown = [parseInt(valueHelpful), parseInt(valueUnhelpful), parseInt(((100 - valueHelpful) - valueUnhelpful))];
+                             
+    var color = d3.scale.ordinal()
+        .range(["#98abc5", "#8a89a6", "#7b6888"]);
+        
+    var labels = d3.scale.ordinal()
+        .range(["helpful", "unhelpful", "neither"]);
 
     //Width and height of pie
-    var w = 300;
-    var h = 300;
-
-    var outerRadius = w / 2;
-    var innerRadius = 0;
+    var width = 300;
+    var height = 300;
+    radius = Math.min(width, height) / 2;
+    
     var arc = d3.svg.arc()
-                    .innerRadius(innerRadius)
-                    .outerRadius(outerRadius);
+        .outerRadius(radius - 10)
+        .innerRadius(0);
     
-    var pie = d3.layout.pie();
+    var pie = d3.layout.pie()
+        .sort(null)
+       // .value(function(d) { return d.breakdown; });
+                
+    var svg = d3.select("body").append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .append("g")
+        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+        
+    var g = svg.selectAll(".arc")
+        .data(pie(breakdown))
+        .enter().append("g")
+        .attr("class", "arc");
 
-    //Create SVG element
-    var svg = d3.select("body")
-                .append("svg")
-                .attr("width", w)
-                .attr("height", h);
-    
-    //Set up groups
-    var arcs = svg.selectAll("g.arc")
-                  .data(pie(breakdown))
-                  .enter()
-                  .append("g")
-                  .attr("class", "arc")
-                  .attr("transform", "translate(" + outerRadius + "," + outerRadius + ")");
-    
-    //Draw arc paths
-    arcs.append("path")
+    g.append("path")
+        .attr("d", arc)
+       // .style("fill", function(d) { return color(d); });
         .attr("fill", function(d, i) {
-            return d.color; 
-        })
-        .attr("d.value", arc);
-    
-    //Labels
-    arcs.append("text")
+            return color(d.breakdown); 
+        });
+
+    g.append("text")
+        .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
+        .attr("dy", ".35em")
+        .style("text-anchor", "middle")
+        // .text(function(d) { return labels(d); })
+        .text(function(d, i) {
+            return labels(d);
+			    })
         .attr("transform", function(d) {
-            return "translate(" + arc.centroid(d.value) + ")";
-        })
-        .attr("text-anchor", "middle")
-        .text(function(d) {
-            return d.name;
-			    });
+            return "translate(" + arc.centroid(d) + ")";
+        });
+
     
     _.each(breakdown, function(el, idx){
         $(".legend").append('<li>' + '<span style="color:' + el.color + '"/>' + el.name + '</span>'  + '</li>');

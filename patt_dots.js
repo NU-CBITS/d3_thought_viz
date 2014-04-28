@@ -50,7 +50,19 @@ var allOrNothing = _.where(thoughts,{thought_pattern:'All-Or-Nothing Thinking'})
 var catastrophic = _.where(thoughts, {thought_pattern:'Catastropic'}).length;
 var lies = _.where(thoughts, {thought_pattern:'Lies'}).length;
 
+    //var patternFrequencies = [parseInt(allOrNothing), parseInt(catastrophic), parseInt(lies)];
+    //var patternNames = ["All or nothing", "Catastropic", "lies"];
+    
+    var frequency = d3.scale.ordinal()
+        .range = [parseInt(allOrNothing), parseInt(catastrophic), parseInt(lies)];
+
+    var color = d3.scale.ordinal()
+        .range(["#98abc5", "#8a89a6", "#7b6888"]);
      
+    var patternNames = d3.scale.ordinal()
+        .range(["All or nothing", "Catastropic", "lies"]);
+
+
 //make the bubbles from the frequency array     
 var diameter = 740,
     format = d3.format(",d"),
@@ -66,39 +78,24 @@ var svg = d3.select("body").append("svg")
     .attr("height", diameter)
     .attr("class", "bubble");
 
-d3.json("log.json", function(error, root) {
   var node = svg.selectAll(".node")
-      .data(bubble.nodes(classes(root))
-      .filter(function(d) { return !d.log; }))
+      .data(patternFrequencies)
       .enter().append("g")
       .attr("class", "node")
-      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+      .attr("transform", "translate(80,0)");
 
-  node.append("title")
-      .text(function(d) { return d.className + ": " + format(d.value); });
+  //node.append("title")
+    //  .text(function(d) { return d.patternNames + ": " + format(d); });
 
   node.append("circle")
-      .attr("r", function(d) { return d.r; })
-      .style("fill", function(d) { return color(d.packageName); });
+      .attr("r", function(d) { return (frequency(d) * 100); })
+      .style("fill", function(d) { return color(d); });
 
   node.append("text")
       .attr("dy", ".3em")
       .style("text-anchor", "middle")
-      .text(function(d) { return d.className.substring(0, d.r / 3); }); 
-});
+      .text(function(d) { return patternNames(d); });
 
-// Returns a flattened hierarchy containing all leaf nodes under the root.
-function classes(root) {
-  var classes = [];
-
-  function nodeSize(thought_pattern, node) {
-     classes.push({packageName: thought_pattern, className: node.thought_pattern, value: node.pattern_frequency[thought_pattern]}); //want to grab the frequency of the thought patt from the array
-  }
-
-  nodeSize(null, root); //call nodesize once i make it make sense
-  return {children: classes};
-} 
-
-d3.select(self.frameElement).style("height", diameter + "px");
+   d3.select(self.frameElement).style("height", diameter + "px");
 
  

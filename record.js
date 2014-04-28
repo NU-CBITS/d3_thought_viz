@@ -44,9 +44,13 @@ var thoughts = [
                         as_if:'I’m going to practice more'
                     }
                  ] ;
-    
-_.each(thoughts, function(el, idx){
-    $(".record").append('<li>' + el.thought + ':' + el.thought_pattern + ":" + el.challenging_thought + ":" + el.as_if + '</li>');
+  
+
+window.onload = function() {
+  _.each(thoughts, function(el, idx){
+    $(".record").append('<li>' + el.thought + ': ' + el.thought_pattern + ": " + el.challenging_thought + ": " + el.as_if + '</li>');
     });
+};  
+
 
 
