@@ -42,7 +42,17 @@ var thoughts =  [
                         thought_pattern: 'All-Or-Nothing Thinking',
                         challenging_thought:'How do i know until I try?',
                         as_if:'I’m going to practice more'
+                    },
+                    
+                    {
+                        USER:'023342', 
+                        id:3, 
+                        thought:'I’ll never be good at playing marbles', 
+                        thought_pattern: 'All-Or-Nothing Thinking',
+                        challenging_thought:'How do i know until I try?',
+                        as_if:'I’m going to practice more'
                     }
+
                  ];     
 
     // count thought types
@@ -93,7 +103,7 @@ var thoughts =  [
         .attr("d", arc)
        // .style("fill", function(d) { return color(d); });
         .attr("fill", function(d, i) {
-            return color(d.breakdown); 
+            return color(i); 
         });
 
     g.append("text")
@@ -102,11 +112,14 @@ var thoughts =  [
         .style("text-anchor", "middle")
         // .text(function(d) { return labels(d); })
         .text(function(d, i) {
-            return labels(d);
+            console.log(d, i);
+            return labels(i);
 			    })
         .attr("transform", function(d) {
             return "translate(" + arc.centroid(d) + ")";
         });
+        
+        
 
     
     _.each(breakdown, function(el, idx){

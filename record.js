@@ -42,13 +42,22 @@ var thoughts = [
                         thought_pattern: 'All-Or-Nothing Thinking',
                         challenging_thought:'How do i know until I try?',
                         as_if:'I’m going to practice more'
+                    },
+                    
+                                        {
+                        USER:'023342', 
+                        id:3, 
+                        thought:'I’ll never be good at playing marbles', 
+                        thought_pattern: 'All-Or-Nothing Thinking',
+                        challenging_thought:'How do i know until I try?',
+                        as_if:'I’m going to practice more'
                     }
                  ] ;
   
 
 window.onload = function() {
   _.each(thoughts, function(el, idx){
-    $(".record").append('<li>' + el.thought + ': ' + el.thought_pattern + ": " + el.challenging_thought + ": " + el.as_if + '</li>');
+    $(".record").append('<li>' + '<h3>' + el.thought + '</h3>' + el.thought_pattern + ": " + el.challenging_thought + ": " + el.as_if + '</li>');
     });
 };  
 

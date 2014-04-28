@@ -50,7 +50,7 @@ var allOrNothing = _.where(thoughts,{thought_pattern:'All-Or-Nothing Thinking'})
 var catastrophic = _.where(thoughts, {thought_pattern:'Catastropic'}).length;
 var lies = _.where(thoughts, {thought_pattern:'Lies'}).length;
 
-    //var patternFrequencies = [parseInt(allOrNothing), parseInt(catastrophic), parseInt(lies)];
+    var patternFrequencies = [parseInt(allOrNothing), parseInt(catastrophic), parseInt(lies)];
     //var patternNames = ["All or nothing", "Catastropic", "lies"];
     
     var frequency = d3.scale.ordinal()
