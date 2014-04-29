@@ -107,21 +107,18 @@ var thoughts =  [
         });
 
     g.append("text")
-        .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
+       // .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
         .attr("dy", ".35em")
         .style("text-anchor", "middle")
         // .text(function(d) { return labels(d); })
         .text(function(d, i) {
-            console.log(d, i);
+            //console.log(d, i);
             return labels(i);
 			    })
         .attr("transform", function(d) {
             return "translate(" + arc.centroid(d) + ")";
         });
-        
-        
 
-    
     _.each(breakdown, function(el, idx){
         $(".legend").append('<li>' + '<span style="color:' + el.color + '"/>' + el.name + '</span>'  + '</li>');
     })    
