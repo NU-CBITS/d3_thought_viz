@@ -12,7 +12,7 @@ var thoughts =  [
                         USER: '023342', 
                         id:2, 
                         thought:'I’ll never be good at playing bananagrams', 
-                        thought_pattern: 'All-Or-Nothing Thinking',
+                        thought_pattern: 'Catastrophic',
                         challenging_thought:'How do i know until I try?',
                         as_if:'I’m going to practice more'
                     },
@@ -39,15 +39,24 @@ var thoughts =  [
                         USER:'023342', 
                         id:2, 
                         thought:'I’ll never be good at playing guitar', 
-                        thought_pattern: 'Catastropic',
+                        thought_pattern: 'Catastrophic',
                         challenging_thought:'How do i know until I try?',
                         as_if:'I’m going to practice more'
-                    }
+                    },
+                    
+                    {
+                        USER:'023342', 
+                        id:2, 
+                        thought:'I’ll never be good at playing space invaders', 
+                        thought_pattern: 'Catastrophic',
+                        challenging_thought:'How do i know until I try?',
+                        as_if:'I’m going to practice more'
+                    },
                  ];     
 
-    // thought patterns, to be replaced with actual patt names
+    // thought patterns, to be replaced with actual pattern names
     var allOrNothing = _.where(thoughts,{thought_pattern:'All-Or-Nothing Thinking'}).length;
-    var catastrophic = _.where(thoughts, {thought_pattern:'Catastropic'}).length;
+    var catastrophic = _.where(thoughts, {thought_pattern:'Catastrophic'}).length;
     var falsehoods = _.where(thoughts, {thought_pattern:'Falsehoods'}).length;
 
     // used to build dot size
@@ -64,9 +73,8 @@ var thoughts =  [
     var patternNames = d3.scale.ordinal()
         .range(['All-Or-Nothing Thinking', 'Catastrophic', 'Falsehoods']);
         
-    // clinician recommendation to be indexed here; index will need to correlate to index of patternNames  
-    var recommendations = d3.scale.ordinal()
-        .range(['See shades of grey', 'Take a deep breath', 'Challenge your assumptions']);
+    // clinician recommendation to be indexed here; need to revise if more than one recommendation per pattern
+    var recommendations = ['See shades of grey', 'Take a deep breath', 'Challenge your assumptions'];  
         
     // margin of the SVG that contains dots
     var margin = {top: 100, right: 30, bottom: 50, left: 200},
@@ -124,7 +132,7 @@ var thoughts =  [
             _.each(recordSet, function(el, idx){
                 $(".tooltip").append('<li>' + '<h3>' + el.thought + '</h3>' + '</li>');
                     })
-            $(".tooltip").append('<h2> Recommendation: ' + recommendations(i) + '</h2>')
+            $(".tooltip").append('<h2> Recommendation: ' + recommendations[i] + '</h2>')
           })
           .on("mouseout", function(d) {
               tooltip.transition()
