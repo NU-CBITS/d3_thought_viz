@@ -146,7 +146,7 @@ var thoughts =  [
             tooltip2.transition()
                .duration(200)
                .style("opacity", .9)
-            tooltip2.html('<h1> Examples of ' + patternNames(m) + ': <h1>')
+            tooltip2.html('<h1> Examples of ' + patternNames2(m) + ': <h1>')
             var recordSet2 = _.where(thoughts, {thought_pattern : patternNames2(m)})
             _.each(recordSet2, function(el, mdx){
                 $(".tooltip2").append('<li>' + '<h3>' + el.thought + '</h3>' + '</li>');
