@@ -133,26 +133,26 @@ var thoughts =  [
         .enter().append("circle")
         .attr("r", (function(d) {
             return (d * 30) + 5;}))
-        .style("fill", (function(d, i) {
-            return color3(i) }))
+        .style("fill", (function(d, k) {
+            return color3(k) }))
             
          // cx and cy will affect dot position, variable based on dot size
-        .attr("cx", (function(d, i) {
+        .attr("cx", (function(d, k) {
             return (40 * d) + 100;
             }))
-        .attr("cy", (function(d, i) {
-            return 120 * i;}))
+        .attr("cy", (function(d, k) {
+            return 120 * k;}))
         
-        .on("mouseover", function(d, i) {
+        .on("mouseover", function(d, k) {
             tooltip3.transition()
                .duration(200)
                .style("opacity", .9)
-            tooltip3.html('<h1> Examples of ' + patternNames(i) + ': <h1>')
-            var recordSet3 = _.where(thoughts, {thought_pattern : patternNames(i)})
-            _.each(recordSet3, function(el, idx){
+            tooltip3.html('<h1> Examples of ' + patternNames(k) + ': <h1>')
+            var recordSet3 = _.where(thoughts, {thought_pattern : patternNames(k)})
+            _.each(recordSet3, function(el, kdx){
                 $(".tooltip3").append('<li>' + '<h3>' + el.thought + '</h3>' + '</li>');
                     })
-            $(".tooltip3").append('<h2> Recommendation: ' + recommendations3[i] + '</h2>')
+            $(".tooltip3").append('<h2> Recommendation: ' + recommendations3[k] + '</h2>')
           })
           .on("mouseout", function(d) {
               tooltip3.transition()
@@ -167,14 +167,14 @@ var thoughts =  [
         .append("text")
         
         // x and y need to equal cx and cy above
-        .attr("x", (function(d, i) {
+        .attr("x", (function(d, k) {
             return (40 * d) + 100;
             }))
-        .attr("y", (function(d, i) {
-            return i * 120;
+        .attr("y", (function(d, k) {
+            return k * 120;
             }))
         .attr("dy", ".3em")
         .style("text-anchor", "middle")
-        .text((function(d, i) {
-            return patternNames3(i);
+        .text((function(d, k) {
+            return patternNames3(k);
             }));
