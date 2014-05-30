@@ -141,17 +141,20 @@ var thoughts =  [
             }))
         .attr("cy", (function(d, m) {
             return 120 * m;}))
+            
+        .attr("stroke", "grey")
+        .attr("stroke-width", 2)
         
         .on("mouseover", function(d, m) {
             tooltip2.transition()
                .duration(200)
                .style("opacity", .9)
-            tooltip2.html('<h1> Examples of ' + patternNames2(m) + ': <h1>')
+            tooltip2.html('<h1>' + patternNames2(m) + ': <h1>')
             var recordSet2 = _.where(thoughts, {thought_pattern : patternNames2(m)})
             _.each(recordSet2, function(el, mdx){
                 $(".tooltip2").append('<li>' + '<h3>' + el.thought + '</h3>' + '</li>');
                     })
-            $(".tooltip2").append('<h2> Recommendation: ' + recommendations2[m] + '</h2>')
+            $(".tooltip2").append('<h2> Recommendation:</br>' + recommendations2[m] + '</h2>')
           })
           .on("mouseout", function(d) {
               tooltip2.transition()

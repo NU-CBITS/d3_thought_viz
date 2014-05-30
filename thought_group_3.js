@@ -143,16 +143,19 @@ var thoughts =  [
         .attr("cy", (function(d, k) {
             return 120 * k;}))
         
+        .attr("stroke", "grey")
+        .attr("stroke-width", 2)
+        
         .on("mouseover", function(d, k) {
             tooltip3.transition()
                .duration(200)
                .style("opacity", .9)
-            tooltip3.html('<h1> Examples of ' + patternNames3(k) + ': <h1>')
+            tooltip3.html('<h1>' + patternNames3(k) + ': <h1>')
             var recordSet3 = _.where(thoughts, {thought_pattern : patternNames(k)})
             _.each(recordSet3, function(el, kdx){
                 $(".tooltip3").append('<li>' + '<h3>' + el.thought + '</h3>' + '</li>');
                     })
-            $(".tooltip3").append('<h2> Recommendation: ' + recommendations3[k] + '</h2>')
+            $(".tooltip3").append('<h2> Recommendation: </br>' + recommendations3[k] + '</h2>')
           })
           .on("mouseout", function(d) {
               tooltip3.transition()
